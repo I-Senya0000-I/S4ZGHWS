@@ -74,10 +74,11 @@
     // usercard.appendChild(pic); //добавляем элемент в карточку 
  </script>
  <script>
+  document.getElementById("btn").innerHTML = "Showhidemainbuton";
+
   let url = JSON.parse(decodeURI(window.location.href.split('?data=')[1]));
   ///alert(url);
   document.getElementById("curclass").innerHTML = JSON.stringify(url);
-  document.getElementById("btn").innerHTML = "Showhidemainbuton";
 
 </script>
 </html>
