@@ -17,6 +17,8 @@
     let url = JSON.parse(decodeURI(window.location.href.split('?data=')[1]));
     alert(url);
     document.getElementById("curclass").innerHTML = JSON.stringify(url);
+    document.getElementById("btn").innerHTML = "Showhidemainbuton";
+
   </script>
   <script>
     let tg = window.Telegram.WebApp; //получаем объект webapp телеграма 
