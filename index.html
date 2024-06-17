@@ -74,6 +74,11 @@
     // usercard.appendChild(pic); //добавляем элемент в карточку 
  </script>
  <script>
+  var keyStr = "ABCDEFGHIJKLMNOP" +
+               "QRSTUVWXYZabcdef" +
+               "ghijklmnopqrstuv" +
+               "wxyz0123456789+/" +
+               "=";
   function decode64(input) {
      var output = "";
      var chr1, chr2, chr3 = "";
