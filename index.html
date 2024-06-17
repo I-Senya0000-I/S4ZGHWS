@@ -14,7 +14,7 @@
     <button id="btnED" class="button">Enable/Disable Main Button</button> <!--Кнопка, чтобы сделать кнопку активной/неактивной-->
   </body>
   <script>
-    let url = window.location.href.split('?')[1];
+    let url = JSON.parse(decodeURI(window.location.href.split('?data=')[1]));
     alert(url);
   </script>
   <script>
