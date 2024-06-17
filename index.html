@@ -123,7 +123,7 @@
   }
   document.getElementById("btn").innerHTML = "Showhidemainbuton";
   
-  let url = JSON.parse(decode64(window.location.href.split('?data=')[1]));
+  let url = JSON.parse(decode64(window.location.href.split('?data=')[1].split('#')[0]));
   console.log(url);
   ///alert(url);
   document.getElementById("curclass").innerHTML = JSON.stringify(url);
