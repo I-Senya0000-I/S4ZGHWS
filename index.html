@@ -7,7 +7,7 @@
   <body>
     <div id="usercard"> <!--Карта профиля, человека, который к нам обратился-->
     </div>
-    <p>Just text</p> <!--Просто текст для проверки-->
+    <p id="curclass">Just text</p> <!--Просто текст для проверки-->
     <a class="link" href="https://i-senya0000-i.github.io/S4ZGHWS/">Link</a> <!--Просто ссылка для проверки-->
     <p class="hint">Some little hint</p> <!--Просто текст-подсказка для проверки-->
     <button id="btn" class="button">Show/Hide Main Button</button> <!--Кнопка, чтобы скрыть / показать основную кнопку-->
@@ -16,6 +16,7 @@
   <script>
     let url = JSON.parse(decodeURI(window.location.href.split('?data=')[1]));
     alert(url);
+    document.getElementById("curclass").innerHTML = JSON.stringify(url);
   </script>
   <script>
     let tg = window.Telegram.WebApp; //получаем объект webapp телеграма 
