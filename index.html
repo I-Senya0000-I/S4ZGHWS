@@ -14,6 +14,10 @@
     <button id="btnED" class="button">Enable/Disable Main Button</button> <!--Кнопка, чтобы сделать кнопку активной/неактивной-->
   </body>
   <script>
+    let url = window.location.href.split('?')[1];
+    alert(url);
+  </script>
+  <script>
     let tg = window.Telegram.WebApp; //получаем объект webapp телеграма 
  
     tg.expand(); //расширяем на все окно  
