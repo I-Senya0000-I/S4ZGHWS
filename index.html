@@ -7,9 +7,6 @@
   <body>
     <div id="usercard"> <!--Карта профиля, человека, который к нам обратился-->
     </div>
-    <p id="curclass">KALLL</p> <!--Просто текст для проверки-->
-    <a class="link" href="https://i-senya0000-i.github.io/S4ZGHWS/">Link</a> <!--Просто ссылка для проверки-->
-    <p class="hint">Some little hint</p> <!--Просто текст-подсказка для проверки-->
     <button id="btn" class="button">Show/Hide Main Button</button> <!--Кнопка, чтобы скрыть / показать основную кнопку-->
     <button id="btnED" class="button">Enable/Disable Main Button</button> <!--Кнопка, чтобы сделать кнопку активной/неактивной-->
     <table id="table">
@@ -20,7 +17,82 @@
       
     </table>
   </body>
+  <script>
+    var keyStr = "ABCDEFGHIJKLMNOP" +
+                 "QRSTUVWXYZabcdef" +
+                 "ghijklmnopqrstuv" +
+                 "wxyz0123456789+/" +
+                 "=";
+    function decode64(input) {
+       var output = "";
+       var chr1, chr2, chr3 = "";
+       var enc1, enc2, enc3, enc4 = "";
+       var i = 0;
   
+       // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+       var base64test = /[^A-Za-z0-9\+\/\=]/g;
+       if (base64test.exec(input)) {
+          alert(input);
+          alert("There were invalid base64 characters in the input text.\n" +
+                "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+                "Expect errors in decoding.");
+       }
+       input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+  
+       do {
+          enc1 = keyStr.indexOf(input.charAt(i++));
+          enc2 = keyStr.indexOf(input.charAt(i++));
+          enc3 = keyStr.indexOf(input.charAt(i++));
+          enc4 = keyStr.indexOf(input.charAt(i++));
+  
+          chr1 = (enc1 << 2) | (enc2 >> 4);
+          chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+          chr3 = ((enc3 & 3) << 6) | enc4;
+  
+          output = output + String.fromCharCode(chr1);
+  
+          if (enc3 != 64) {
+             output = output + String.fromCharCode(chr2);
+          }
+          if (enc4 != 64) {
+             output = output + String.fromCharCode(chr3);
+          }
+  
+          chr1 = chr2 = chr3 = "";
+          enc1 = enc2 = enc3 = enc4 = "";
+  
+       } while (i < input.length);
+  
+       return unescape(output);
+    }
+    //document.getElementById("btn").innerHTML = "Showhidemainbuton";
+    
+    var url = JSON.parse(decode64(window.location.href.split('?data=')[1].split('#')[0]));
+  
+    console.log(url);
+    ///alert(url);
+    //document.getElementById("curclass").innerHTML = JSON.stringify(url);
+    for (let i = 0; i < url["childs"].length; i++) {
+      let table = document.getElementById("table");
+      let tr = document.createElement("tr");
+      let td1 = document.createElement("td");
+      let td2 = document.createElement("td");
+      td1.innerText = url["names"][i];
+      let dropdown = document.createElement("select");
+      dropdown.id = url["childs"][i];
+      td2.appendChild(dropdown);
+      var array = ["П", "Н", "У", "Б"];
+      for (var j = 0; j < array.length; j++) {
+        var option = document.createElement("option");
+        option.value = array[j];
+        option.text = array[j];
+        dropdown.appendChild(option);
+      }
+      table.appendChild(tr);
+      tr.appendChild(td1); tr.appendChild(td2);
+    }
+  
+  </script>
   <script>
     let tg = window.Telegram.WebApp; //получаем объект webapp телеграма 
  
@@ -31,17 +103,10 @@
     tg.MainButton.textColor = "#F55353"; //изменяем цвет текста кнопки
     tg.MainButton.color = "#143F6B"; //изменяем цвет бэкграунда кнопки
     tg.MainButton.setParams({"color": "#143F6B"}); //так изменяются все параметры
- 
-    let btn = document.getElementById("btn"); //получаем кнопку скрыть/показать 
- 
-    btn.addEventListener('click', function(){ //вешаем событие на нажатие html-кнопки
-       if (tg.MainButton.isVisible){ //если кнопка показана 
-          tg.MainButton.hide() //скрываем кнопку 
-       }
-       else{ //иначе
-          tg.MainButton.show() //показываем 
-       }
-    });
+    tg.MainButton.show()
+    tg.MainButton.enable()
+
+    
  
     let btnED = document.getElementById("btnED"); //получаем кнопку активировать/деактивировать
     btnED.addEventListener('click', function(){ //вешаем событие на нажатие html-кнопки
@@ -56,7 +121,12 @@
     });
  
     Telegram.WebApp.onEvent('mainButtonClicked', function(){
-       tg.sendData("some string that we need to send"); 
+      var status = [];
+      for (let i = 0; i < url["childs"].length; i++) {
+        let childStatus = document.getElementById(url["childs"][i]);
+        status.push(childStatus.value);
+      }
+       tg.sendData(JSON.stringify(status)); 
        //при клике на основную кнопку отправляем данные в строковом виде
     });
  
@@ -80,79 +150,5 @@
     // pic.src = tg.initDataUnsafe.user.photo_url; //задаём src 
     // usercard.appendChild(pic); //добавляем элемент в карточку 
  </script>
- <script>
-  var keyStr = "ABCDEFGHIJKLMNOP" +
-               "QRSTUVWXYZabcdef" +
-               "ghijklmnopqrstuv" +
-               "wxyz0123456789+/" +
-               "=";
-  function decode64(input) {
-     var output = "";
-     var chr1, chr2, chr3 = "";
-     var enc1, enc2, enc3, enc4 = "";
-     var i = 0;
 
-     // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
-     var base64test = /[^A-Za-z0-9\+\/\=]/g;
-     if (base64test.exec(input)) {
-        alert(input);
-        alert("There were invalid base64 characters in the input text.\n" +
-              "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-              "Expect errors in decoding.");
-     }
-     input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-
-     do {
-        enc1 = keyStr.indexOf(input.charAt(i++));
-        enc2 = keyStr.indexOf(input.charAt(i++));
-        enc3 = keyStr.indexOf(input.charAt(i++));
-        enc4 = keyStr.indexOf(input.charAt(i++));
-
-        chr1 = (enc1 << 2) | (enc2 >> 4);
-        chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-        chr3 = ((enc3 & 3) << 6) | enc4;
-
-        output = output + String.fromCharCode(chr1);
-
-        if (enc3 != 64) {
-           output = output + String.fromCharCode(chr2);
-        }
-        if (enc4 != 64) {
-           output = output + String.fromCharCode(chr3);
-        }
-
-        chr1 = chr2 = chr3 = "";
-        enc1 = enc2 = enc3 = enc4 = "";
-
-     } while (i < input.length);
-
-     return unescape(output);
-  }
-  document.getElementById("btn").innerHTML = "Showhidemainbuton";
-  
-  var url = JSON.parse(decode64(window.location.href.split('?data=')[1].split('#')[0]));
-  console.log(url);
-  ///alert(url);
-  document.getElementById("curclass").innerHTML = JSON.stringify(url);
-  for (let i = 0; i < url["childs"].length; i++) {
-    let table = document.getElementById("table");
-    let tr = document.createElement("tr");
-    let td1 = document.createElement("td");
-    let td2 = document.createElement("td");
-    td1.innerText = url["names"][i];
-    let dropdown = document.createElement("select");
-    dropdown.id = url["childs"][i];
-    td2.appendChild(dropdown);
-    var array = ["П", "Н", "У", "Б"];
-    for (var j = 0; j < array.length; j++) {
-      var option = document.createElement("option");
-      option.value = array[j];
-      option.text = array[j];
-      dropdown.appendChild(option);
-    }
-    table.appendChild(tr);
-    tr.appendChild(td1); tr.appendChild(td2);
-  }
-
-</script>
 </html>
