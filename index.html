@@ -142,14 +142,16 @@
     td1.innerText = url["childs"][i]["name"];
     let dropdown = document.createElement("select");
     dropdown.id = url["childs"][i];
-    let opt1 = document.createElement("option").setAttribute(new Option("П", "П"));
-    let opt2 = document.createElement("option").setAttribute(new Option("Н", "Н"));
-    let opt3 = document.createElement("option").setAttribute(new Option("У", "У"));
-    let opt4 = document.createElement("option").setAttribute(new Option("Б", "Б"));
+    td2.appendChild(dropdown);
+    var array = ["П", "Н", "У", "Б"];
+    for (var j = 0; j < array.length; j++) {
+      var option = document.createElement("option");
+      option.value = array[j];
+      option.text = array[j];
+      dropdown.appendChild(option);
+    }
     table.appendChild(tr);
     tr.appendChild(td1); tr.appendChild(td2);
-    td2.appendChild(dropdown);
-    dropdown.appendChild(opt1); dropdown.appendChild(opt2); dropdown.appendChild(opt3); dropdown.appendChild(opt4);
   }
 
 </script>
