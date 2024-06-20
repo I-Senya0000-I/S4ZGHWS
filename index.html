@@ -12,6 +12,13 @@
     <p class="hint">Some little hint</p> <!--Просто текст-подсказка для проверки-->
     <button id="btn" class="button">Show/Hide Main Button</button> <!--Кнопка, чтобы скрыть / показать основную кнопку-->
     <button id="btnED" class="button">Enable/Disable Main Button</button> <!--Кнопка, чтобы сделать кнопку активной/неактивной-->
+    <table id="table">
+      <tr>
+        <th>Имя</th>
+        <th>Статус</th>
+      </tr>
+      
+    </table>
   </body>
   
   <script>
@@ -127,6 +134,19 @@
   console.log(url);
   ///alert(url);
   document.getElementById("curclass").innerHTML = JSON.stringify(url);
+  for (let i = 0; i < url["childs"].length; i++) {
+    let table = document.getElementById("table");
+    let tr = table.createElement("tr");
+    let td1 = tr.createElement("td");
+    let td2 = tr.createElement("td");
+    td1.innerText = url["childs"][i]["name"];
+    let dropdown = td2.createElement("select");
+    dropdown.id = url["childs"][i];
+    let opt1 = dropdown.createElement("option").innerText = "П"; opt1.value = "П";
+    let opt2 = dropdown.createElement("option").innerText = "Н"; opt2.value = "Н";
+    let opt3 = dropdown.createElement("option").innerText = "У"; opt3.value = "У";
+    let opt4 = dropdown.createElement("option").innerText = "Б"; opt4.value = "Б";
+  }
 
 </script>
 </html>
