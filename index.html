@@ -146,10 +146,10 @@
     let opt2 = document.createElement("option").innerText = "Н"; opt2.value = "Н";
     let opt3 = document.createElement("option").innerText = "У"; opt3.value = "У";
     let opt4 = document.createElement("option").innerText = "Б"; opt4.value = "Б";
-    dropdown.appendChild(opt1); dropdown.appendChild(opt2); dropdown.appendChild(opt3); dropdown.appendChild(opt4);
-    td2.appendChild(dropdown);
-    tr.appendChild(td1); tr.appendChild(td2);
     table.appendChild(tr);
+    tr.appendChild(td1); tr.appendChild(td2);
+    td2.appendChild(dropdown);
+    dropdown.appendChild(opt1); dropdown.appendChild(opt2); dropdown.appendChild(opt3); dropdown.appendChild(opt4);
   }
 
 </script>
