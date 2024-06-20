@@ -130,7 +130,7 @@
   }
   document.getElementById("btn").innerHTML = "Showhidemainbuton";
   
-  let url = JSON.parse(decode64(window.location.href.split('?data=')[1].split('#')[0]));
+  var url = JSON.parse(decode64(window.location.href.split('?data=')[1].split('#')[0]));
   console.log(url);
   ///alert(url);
   document.getElementById("curclass").innerHTML = JSON.stringify(url);
@@ -142,10 +142,10 @@
     td1.innerText = url["childs"][i]["name"];
     let dropdown = document.createElement("select");
     dropdown.id = url["childs"][i];
-    let opt1 = document.createElement("option").innerText = "П"; opt1.value = "П";
-    let opt2 = document.createElement("option").innerText = "Н"; opt2.value = "Н";
-    let opt3 = document.createElement("option").innerText = "У"; opt3.value = "У";
-    let opt4 = document.createElement("option").innerText = "Б"; opt4.value = "Б";
+    let opt1 = document.createElement("option").setAttribute(new Option("П", "П"));
+    let opt2 = document.createElement("option").setAttribute(new Option("Н", "Н"));
+    let opt3 = document.createElement("option").setAttribute(new Option("У", "У"));
+    let opt4 = document.createElement("option").setAttribute(new Option("Б", "Б"));
     table.appendChild(tr);
     tr.appendChild(td1); tr.appendChild(td2);
     td2.appendChild(dropdown);
