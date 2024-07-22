@@ -80,7 +80,7 @@
       let dropdown = document.createElement("select");
       dropdown.id = url["childs"][i];
       td2.appendChild(dropdown);
-      var array = ["П", "Н", "У", "Б"];
+      var array = ["Присутсвует", "Отсутствует", "Уважительная причина", "Болеет"];
       for (var j = 0; j < array.length; j++) {
         var option = document.createElement("option");
         option.value = array[j];
@@ -98,7 +98,7 @@
     tg.expand(); //расширяем на все окно  
  
     tg.MainButton.text = "Changed Text"; //изменяем текст кнопки 
-    tg.MainButton.setText("Changed Text1"); //изменяем текст кнопки иначе
+    tg.MainButton.setText("Отправить"); //изменяем текст кнопки иначе
     tg.MainButton.textColor = "#F55353"; //изменяем цвет текста кнопки
     tg.MainButton.color = "#143F6B"; //изменяем цвет бэкграунда кнопки
     tg.MainButton.setParams({"color": "#143F6B"}); //так изменяются все параметры
